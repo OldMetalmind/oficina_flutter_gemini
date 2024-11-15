@@ -25,35 +25,21 @@ class _MainAppState extends State<MainApp> {
   final Set<String> messages = {};
   final List<String> todos = [];
 
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: FlexThemeData.light(scheme: FlexScheme.outerSpace),
       home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Cleaning Tasks App'),
-        ),
+        // TODO: Add AppBar
         body: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
-              Text(
-                'Todos',
-                style: Theme.of(context).textTheme.headlineLarge,
-              ),
-              Expanded(
-                child: ListView.builder(
-                  itemCount: todos.length,
-                  itemBuilder: (context, index) => ListTile(
-                    title: Text(todos[index]),
-                    onTap: () => _removeTodo(todos[index]),
-                  ),
-                ),
-              ),
-              Text(
-                'Create Tasks',
-                style: Theme.of(context).textTheme.headlineLarge,
-              ),
+              /// TODO: Add title with theme headlineLarge
+              _TodoList(todos: todos),
+
+              /// TODO: Add title with theme headlineLarge
               TextField(
                 decoration: const InputDecoration(
                   hintText: 'Enter a prompt',
@@ -61,16 +47,7 @@ class _MainAppState extends State<MainApp> {
                 onSubmitted: _generatePrompts,
               ),
               Expanded(
-                child: ListView.builder(
-                  itemCount: messages.length,
-                  itemBuilder: (context, index) {
-                    final message = messages.toList()[index];
-                    return ListTile(
-                      contentPadding: const EdgeInsets.all(3),
-                      title: Text(message),
-                      onTap: () => _addTodo(message),
-                    );
-                  },
+                child: _ListPrompts(messages: messages.toList()
                 ),
               ),
             ],
@@ -91,24 +68,64 @@ class _MainAppState extends State<MainApp> {
   void _processPrompt(String? text) {
     messages.clear();
     final list = text?.split('\n');
-
     for (var element in list ?? []) {
       messages.add(element);
     }
-
     setState(() {});
   }
 
   /// Add a todo to the list
+  /// TODO: Add onTap to remove the todo
   void _addTodo(String message) {
-    todos.add(message);
-    messages.remove(message);
-    setState(() {});
+    setState(() {
+      todos.add(message);
+      messages.remove(message);
+    });
   }
 
   /// Remove a todo from the list
+  /// TODO: Add onTap to remove the todo
   void _removeTodo(String todo) {
-    todos.remove(todo);
-    setState(() {});
+    setState(() {
+      todos.remove(todo);
+    });
+  }
+}
+
+class _ListPrompts extends StatelessWidget {
+  final List<String> messages;
+
+  const _ListPrompts({required this.messages});
+
+  String messageAtIndex(int index) => messages[index];
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      itemCount: messages.length,
+      itemBuilder: (context, index) => ListTile(
+        title: Text(messages.toList()[index]),
+        // TODO: Add onTap to add the todo
+      ),
+    );
+  }
+}
+
+class _TodoList extends StatelessWidget {
+  const _TodoList({
+    required this.todos,
+  });
+
+  final List<String> todos;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      itemCount: todos.length,
+      itemBuilder: (context, index) => ListTile(
+        title: Text(todos[index]),
+        // TODO: Add onTap to remove the todo
+      ),
+    );
   }
 }
