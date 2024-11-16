@@ -1,4 +1,5 @@
 import 'package:app_todo_gemini/env.dart';
+import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
 
