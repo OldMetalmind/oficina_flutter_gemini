@@ -11,6 +11,8 @@
             "args": [
                 "-d",
                 "chrome",
+                "--dart-define-from-file",
+                "keys.env"
             ]
         },
     ]
