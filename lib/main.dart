@@ -3,8 +3,6 @@ import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
 
-const apiKey = String.fromEnvironment('API_KEY');
-
 const basePrompt =
     'Create a list of cleaning tasks from the following prompt, where each item is output in a list where each item is the todo description itself. Do not include any other text. Here is the one word prompt:';
 
